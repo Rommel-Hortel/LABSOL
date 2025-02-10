@@ -1,0 +1,57 @@
+<?php
+include("../connection.php");
+
+$driversDir = '../drivers/';
+if (!is_dir($driversDir)) {
+    mkdir($driversDir, 0777, true);
+}
+
+if (isset($_POST['upload'])) {
+    if (!empty($_FILES['file']['name'][0])) {
+        $files = $_FILES['file'];
+        for ($i = 0; $i < count($files['name']); $i++) {
+            $fileName = basename($files['name'][$i]);
+            $targetFilePath = $driversDir . $fileName;
+
+            if (strpos($fileName, '..') !== false) {
+                echo "Invalid file/folder name detected: $fileName <br>";
+                continue;
+            }
+
+            if (move_uploaded_file($files['tmp_name'][$i], $targetFilePath)) {
+                $stmt = $conn->prepare("INSERT INTO files (file_name, file_path) VALUES (?, ?)");
+                $stmt->bind_param("ss", $fileName, $targetFilePath);
+                if ($stmt->execute()) {
+                    echo "File '{$fileName}' uploaded successfully!<br>";
+                } else {
+                    echo "Database error: " . $stmt->error . "<br>";
+                }
+                $stmt->close();
+            } else {
+                echo "File '{$fileName}' upload failed.<br>";
+            }
+        }
+    }
+}
+
+if (isset($_POST['delete']) && isset($_POST['file_name'])) {
+    $fileToDelete = $driversDir . $_POST['file_name'];
+    $stmt = $conn->prepare("DELETE FROM files WHERE file_name = ?");
+    $stmt->bind_param("s", $_POST['file_name']);
+    if ($stmt->execute()) {
+        if (is_dir($fileToDelete)) {
+            array_map('unlink', glob("$fileToDelete/*.*"));
+            rmdir($fileToDelete);
+            echo "Folder deleted successfully!";
+        } elseif (file_exists($fileToDelete)) {
+            unlink($fileToDelete);
+            echo "File deleted successfully!";
+        }
+    } else {
+        echo "Database error: " . $stmt->error . "<br>";
+    }
+    $stmt->close();
+}
+
+$conn->close();
+?>

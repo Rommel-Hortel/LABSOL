@@ -1,5 +1,5 @@
 <?php
-$driversfileDir = 'driversfile/';
+$driversfileDir = 'DriversFile/';
 if (!is_dir($driversfileDir)) {
     mkdir($driversfileDir, 0777, true);
 }
@@ -48,35 +48,42 @@ $filteredFiles = array_filter($files, function($file) use ($searchQuery) {
 <!DOCTYPE html>
 <html>
 <head>
-    <title>File Uploader with CRUD</title>
+    <title>Drivers</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 </head>
 <body class="container py-4">
     <h1 class="mb-4 text-center">INSTALLER FILES</h1>
-    
-    <ul class="nav nav-pills nav-fill mb-3 bg-dark p-2">
-        <li class="nav-item">
-            <a class="nav-link active btn btn-secondary" aria-current="page" href="drivers.php">Drivers</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-light" href="Opsoftware.php">Operating Softwares</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-light" href="softwares.php">Softwares</a>
-        </li>
-    </ul>
+        <div class="text-center my-3">
+            <a href="home.php" class="btn btn-primary">
+                <i class="bi bi-house-door"></i> Home
+            </a>
+        </div>
+            <ul class="nav nav-pills nav-fill nav-tabs id = myTab role= tablist mb-3 bg-dark p-2">
+                <li class="nav-item">
+                    <a class="nav-link active btn btn-secondary" aria-current="page" href="drivers.php">Drivers</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="Opsoftware.php">Operating Softwares</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="softwares.php">Softwares</a>
+                </li>
+            </ul>
 
     <h2 class="mt-4 text-center">Upload a File</h2>
     <form method="POST" enctype="multipart/form-data" class="mb-3 text-center">
         <input type="file" name="file" class="form-control d-inline w-50" required>
-        <button type="submit" name="upload" class="btn btn-primary mt-2">Upload</button>
+        <button type="submit" name="upload" class="btn btn-primary mt-2 bi bi-cloud-upload"> Upload </button>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+       
     </form>
 
     <h2 class="text-center">Search Files</h2>
     <form method="POST" class="mb-3 text-center">
         <input type="text" name="search" class="form-control d-inline w-50" placeholder="Search files..." value="<?php echo htmlspecialchars($searchQuery); ?>">
-        <button type="submit" class="btn btn-primary mt-2">Search</button>
-    </form>
+        <button type="submit" class="btn btn-primary mt-2 ">Search</button>
+        
 
     <h2 class="text-center">Uploaded Files</h2>
     <table class="table table-bordered">

@@ -47,28 +47,40 @@ if (isset($_POST['submit'])) {
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+
+    <style>
+        body {
+            font-family: 'Montserrat', 'Inter';
+            background: linear-gradient(to bottom, #1f95dd, #92d6fd, #e4f4fd);
+        }
+        .letter-spacing {
+            letter-spacing: 2px; /* Adds spacing between letters */
+        }
+    </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-gradient-aqua text-white">
         <div class="container-fluid">
-            <a class="navbar-brand" href="index.php">PHP CRUD OPERATION</a>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" href="home.php">Home</a>
-                        <a class="nav-link active" href="login.php">Log In</a>
+                        <a class="nav-link active fw-bold px-4 py-2 fs-5" href="home.php" style="font-size: 1.5rem;"> <i class="bi bi-house-door"></i> Home</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 
+    
+
     <div class="col-lg-6 m-auto">
         <form method="post">
             <br><br>
             <div class="card">
                 <div class="card-header bg-gradient-aqua text-white" style="background: linear-gradient(to right, aqua, #80e0e5);">
-                    <h1 class="text-white text-center">LabSolution Technologies</h1>
+                    <h1 class="text-white text-center letter-spacing">LabSolution Technology Inc.</h1>
                 </div>
                 <br>
 
@@ -78,21 +90,24 @@ if (isset($_POST['submit'])) {
                 <?php if ($error): ?>
                     <div class="alert alert-danger text-center"><?= $error; ?></div>
                 <?php endif; ?>
+                
+                <form>
+                <div class="form-group">
+                <label class="letter-spacing">NAME:</label>
+                <input type="text" name="name" class="form-control letter-spacing" placeholder="NAME" required> <br>
 
-                <label>NAME:</label>
-                <input type="text" name="name" class="form-control" required> <br>
+                <label class="letter-spacing">EMAIL:</label>
+                <input type="email" name="email" class="form-control letter-spacing" placeholder="Email"required> <br>
 
-                <label>EMAIL:</label>
-                <input type="email" name="email" class="form-control" required> <br>
+                <label class="letter-spacing">PASSWORD:</label>
+                <input type="password" name="password" class="form-control letter-spacing" placeholder="Password" required> <br>
 
-                <label>PASSWORD:</label>
-                <input type="password" name="password" class="form-control" required> <br>
-
-                <label>CONFIRM PASSWORD:</label>
-                <input type="password" name="confirm_password" class="form-control" required> <br>
-
-                <button class="btn btn-dark" type="submit" name="submit">Submit</button><br>
-                <a class="btn btn-dark" href="index.php">Cancel</a><br>
+                <label class="letter-spacing">CONFIRM PASSWORD:</label>
+                <input type="password" name="confirm_password" class="form-control letter-spacing" placeholder="Confirm Password"required> <br>
+                </div>
+                <button class="btn btn-dark letter-spacing" type="submit" name="submit">Submit</button><br>
+                <a class="btn btn-dark letter-spacing" href="index.php">Cancel</a><br>
+                </form>
             </div>
         </form>
     </div>
